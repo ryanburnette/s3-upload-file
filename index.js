@@ -28,12 +28,10 @@ function upload(opts) {
     throw new Error('opts.uploadOpts.Body may not be set');
   }
 
-  var fileName = path.basename(opts.filePath);
-
   if (opts.remotePathPrefix) {
-    opts.uploadOpts.Key = path.join(opts.remotePathPrefix, fileName);
+    opts.uploadOpts.Key = path.join(opts.remotePathPrefix, opts.filePath);
   } else {
-    opts.uploadOpts.Key = fileName;
+    opts.uploadOpts.Key = opts.filePath;
   }
 
   if (!opts.uploadOpts.ContentType) {

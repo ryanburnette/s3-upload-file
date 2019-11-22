@@ -1,6 +1,6 @@
 {
   "name": "@ryanburnette/s3-upload-file",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Upload a file to AWS S3 using Node.js.",
   "main": "index.js",
   "repository": {
