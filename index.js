@@ -28,10 +28,12 @@ function upload(opts) {
     throw new Error('opts.uploadOpts.Body may not be set');
   }
 
+  opts.uploadOpts.Key = opts.filePath;
+  if (opts.cwd) {
+    opts.uploadOpts.Key = path.normalize(opts.uploadOpts.Key.replace(opts.cwd));
+  }
   if (opts.remotePathPrefix) {
-    opts.uploadOpts.Key = path.join(opts.remotePathPrefix, opts.filePath);
-  } else {
-    opts.uploadOpts.Key = opts.filePath;
+    opts.uploadOpts.Key = path.join(opts.remotePathPrefix, opts.uploadOpts.Key);
   }
 
   if (!opts.uploadOpts.ContentType) {
@@ -39,7 +41,9 @@ function upload(opts) {
       mime.lookup(opts.filePath) || 'application/octet-stream';
   }
 
-  var fileStream = fs.createReadStream(opts.filePath);
+  var fileStream = fs.createReadStream(
+    path.join(opts.cwd || '', opts.filePath)
+  );
   opts.uploadOpts.Body = fileStream;
 
   return new Promise(function(resolve, reject) {

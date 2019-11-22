@@ -9,7 +9,11 @@ Upload a file to AWS S3 using Node.js.
 
 ```js
 require('@ryanburnette/s3-upload-file')({
-  filePath: 'kitten.jpg',
+  // optional cwd to keep paths relative
+  cwd: 'demo/',
+
+  // path to file relative to project or cwd
+  filePath: 'dir/file.txt',
 
   // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html
   s3: new require('aws-sdk').S3(),

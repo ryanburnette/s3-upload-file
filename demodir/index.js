@@ -2,12 +2,13 @@
 
 require('dotenv').config({});
 var AWS = require('aws-sdk');
-var upload = require('./');
+var upload = require('../');
 
 upload({
   s3: new AWS.S3(),
-  filePath: 'demo.js',
-  // remotePathPrefix: 'foo',
+  cwd: 'foo/',
+  filePath: 'bar/file.txt',
+  remotePathPrefix: '1.0.0',
   uploadOpts: {
     Bucket: process.env.BUCKET
   }
