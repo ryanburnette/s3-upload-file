@@ -7,6 +7,7 @@ var upload = require('./');
 upload({
   s3: new AWS.S3(),
   filePath: 'demo.js',
+  // remotePathPrefix: 'foo',
   uploadOpts: {
     Bucket: process.env.BUCKET
   }

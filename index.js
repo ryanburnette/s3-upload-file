@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var mime = require('mime-types');
 
 function upload(opts) {
   if (!opts) {
@@ -33,6 +34,11 @@ function upload(opts) {
     opts.uploadOpts.Key = path.join(opts.remotePathPrefix, fileName);
   } else {
     opts.uploadOpts.Key = fileName;
+  }
+
+  if (!opts.uploadOpts.ContentType) {
+    opts.uploadOpts.ContentType =
+      mime.lookup(opts.filePath) || 'application/octet-stream';
   }
 
   var fileStream = fs.createReadStream(opts.filePath);
